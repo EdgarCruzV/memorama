@@ -82,6 +82,22 @@ class Tablero{
    * */
     fun gano(player: Ficha): Boolean {
         var win  = false
+        if(celdas[0][0]?.estadoCelda == player && celdas[0][1]?.estadoCelda == player && celdas[0][2]?.estadoCelda == player)
+            win = true
+        if(celdas[1][0]?.estadoCelda == player && celdas[1][1]?.estadoCelda == player && celdas[1][2]?.estadoCelda == player)
+            win = true
+        if(celdas[2][0]?.estadoCelda == player && celdas[2][1]?.estadoCelda == player && celdas[2][2]?.estadoCelda == player)
+            win = true
+        if(celdas[0][0]?.estadoCelda == player && celdas[1][0]?.estadoCelda == player && celdas[2][0]?.estadoCelda == player)
+            win = true
+        if(celdas[0][1]?.estadoCelda == player && celdas[1][1]?.estadoCelda == player && celdas[2][1]?.estadoCelda == player)
+            win = true
+        if(celdas[0][2]?.estadoCelda == player && celdas[1][2]?.estadoCelda == player && celdas[2][2]?.estadoCelda == player)
+            win = true
+        if(celdas[0][0]?.estadoCelda == player && celdas[1][1]?.estadoCelda == player && celdas[2][2]?.estadoCelda == player)
+            win = true
+        if(celdas[0][2]?.estadoCelda == player && celdas[1][1]?.estadoCelda == player && celdas[2][0]?.estadoCelda == player)
+            win = true
 
 
 
@@ -99,11 +115,25 @@ class Tablero{
 * Completa: setTablero y setFecha, en setFicha utiliza un when
 * */
     fun setTablero( p1: ArrayList<Int>,  p2: ArrayList<Int>){
+        for(i in 0 until p1.size)
+            setFicha(p1[i], Ficha.CRUZ)
 
+        for(i in 0 until p2.size)
+            setFicha(p2[i], Ficha.BOLA)
     }
 
     fun setFicha(posicion: Int,ficha: Ficha ){
-
+        when(posicion){
+            1 -> celdas[0][0] = Celda(0,0 , ficha)
+            2 -> celdas[0][1] = Celda(0,1 , ficha)
+            3 -> celdas[0][2] = Celda(0,2 , ficha)
+            4 -> celdas[1][0] = Celda(1,0 , ficha)
+            5 -> celdas[1][1] = Celda(1,1 , ficha)
+            6 -> celdas[1][2] = Celda(1,2 , ficha)
+            7 -> celdas[2][0] = Celda(2,0 , ficha)
+            8 -> celdas[2][1] = Celda(2,1 , ficha)
+            9 -> celdas[2][2] = Celda(2,2 , ficha)
+        }
     }
 
 }
@@ -164,7 +194,7 @@ class JugadorAutomatic(tablero: Tablero) {
                     * Agrega el llamado recursivo de minimax y obtén la calificación Actual
 
                     * */
-                    calificacionActual = 0
+                    calificacionActual = minimax(profundidad - 1, contrario)[0]
                     if(calificacionActual > mejorCalificacion) {
                         mejorCalificacion = calificacionActual
                         mejorRenglon = it[0]
@@ -179,7 +209,7 @@ class JugadorAutomatic(tablero: Tablero) {
                     * Agrega el llamado recursivo de minimax y obtén la calificación Actual
 
                     * */
-                    calificacionActual = 0
+                    calificacionActual = minimax(profundidad - 1, miFicha)[0]
                     if(calificacionActual < mejorCalificacion) {
                         mejorCalificacion = calificacionActual
                         mejorRenglon = it[0]

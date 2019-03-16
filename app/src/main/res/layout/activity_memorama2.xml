@@ -7,6 +7,12 @@
         android:layout_height="match_parent"
         tools:context="com.example.memorama.MemoramaActivity">
 
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/Pares_encontrados"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="@+id/recyclerView1"/>
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView1"
             android:layout_width="0dp"
@@ -19,6 +25,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp" />
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.0"/>
 </android.support.constraint.ConstraintLayout>

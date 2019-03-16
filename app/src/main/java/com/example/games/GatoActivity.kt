@@ -22,6 +22,10 @@ class GatoActivity : AppCompatActivity() {
     var player = 1;
     var p1 = ArrayList<Int>()
     var p2 = ArrayList<Int>()
+    val cruz : Ficha = Ficha.CRUZ
+    val bola : Ficha = Ficha.BOLA
+    var tablero : Tablero = Tablero()
+    var auto : JugadorAutomatic = JugadorAutomatic(tablero)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,6 +35,9 @@ class GatoActivity : AppCompatActivity() {
         *
         * asigna a tu JugadorAutomatic la Ficha con la que juega.
         * * */
+        if(player == 1) auto.asignaFicha(bola)
+        if(player == 2) auto.asignaFicha(cruz)
+        auto.asignaFicha(bola)
     }
 
     fun gameOn(buttonCode:Int, selectedButton:Button){
@@ -95,6 +102,9 @@ class GatoActivity : AppCompatActivity() {
    Llama a la función de "move" utilzando un Handler().postDelayed de 1 segundo
 
     * */
+        Handler().postDelayed({
+            move()
+        }, 1000) // time in milliseconds
 
 
 
@@ -119,8 +129,38 @@ class GatoActivity : AppCompatActivity() {
         2. el Button correspondiente con la interfaz
 
      * */
-    fun nextFicha(renglon : Int, columna : Int) {
-        var pair = "NOT implemented"
+    fun nextFicha(renglon : Int, columna : Int): Pair<Int, Button>  {
+        var numFicha : Int = 0
+        var selectedButton : Button = findViewById(R.id.button)
+        when(renglon){
+            0 -> when(columna){
+                0 -> numFicha = 1
+                1 -> numFicha = 2
+                2 -> numFicha = 3
+            }
+            1 -> when(columna){
+                0 -> numFicha = 4
+                1 -> numFicha = 5
+                2 -> numFicha = 6
+            }
+            2 -> when(columna){
+                0 -> numFicha = 7
+                1 -> numFicha = 8
+                2 -> numFicha = 9
+            }
+        }
+        when(numFicha){
+            1 -> selectedButton = findViewById(R.id.button)
+            2 -> selectedButton = findViewById(R.id.button2)
+            3 -> selectedButton = findViewById(R.id.button3)
+            4 -> selectedButton = findViewById(R.id.button4)
+            5 -> selectedButton = findViewById(R.id.button5)
+            6 -> selectedButton = findViewById(R.id.button6)
+            7 -> selectedButton = findViewById(R.id.button7)
+            8 -> selectedButton = findViewById(R.id.button8)
+            9 -> selectedButton = findViewById(R.id.button9)
+        }
+        return Pair(numFicha, selectedButton)
 
     }
 
@@ -136,6 +176,9 @@ class GatoActivity : AppCompatActivity() {
      * */
 
     fun move(){
-
+        auto.tablero.setTablero(p1, p2)
+        var temp = auto.calculaMovimiento()
+        var pair = nextFicha(temp!![0], temp!![1])
+        gameOn(pair.first, pair.second)
     }
 }
